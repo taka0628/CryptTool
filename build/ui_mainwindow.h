@@ -39,8 +39,7 @@ public:
     QGroupBox *groupBox_3;
     QWidget *horizontalLayoutWidget_2;
     QHBoxLayout *horizontalLayout_2;
-    QPushButton *pushButton_sha1;
-    QPushButton *pushButton_sha2;
+    QPushButton *pushButton_sha;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -94,15 +93,10 @@ public:
         horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        pushButton_sha1 = new QPushButton(horizontalLayoutWidget_2);
-        pushButton_sha1->setObjectName(QStringLiteral("pushButton_sha1"));
+        pushButton_sha = new QPushButton(horizontalLayoutWidget_2);
+        pushButton_sha->setObjectName(QStringLiteral("pushButton_sha"));
 
-        horizontalLayout_2->addWidget(pushButton_sha1);
-
-        pushButton_sha2 = new QPushButton(horizontalLayoutWidget_2);
-        pushButton_sha2->setObjectName(QStringLiteral("pushButton_sha2"));
-
-        horizontalLayout_2->addWidget(pushButton_sha2);
+        horizontalLayout_2->addWidget(pushButton_sha);
 
         MainWindow->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(MainWindow);
@@ -125,8 +119,7 @@ public:
         groupBox_2->setTitle(QApplication::translate("MainWindow", "\345\205\254\351\226\213\351\215\265\346\232\227\345\217\267", Q_NULLPTR));
         pushButton_rsa->setText(QApplication::translate("MainWindow", "RSA", Q_NULLPTR));
         groupBox_3->setTitle(QApplication::translate("MainWindow", "\343\203\217\343\203\203\343\202\267\343\203\245", Q_NULLPTR));
-        pushButton_sha1->setText(QApplication::translate("MainWindow", "SHA-1", Q_NULLPTR));
-        pushButton_sha2->setText(QApplication::translate("MainWindow", "SHA-2", Q_NULLPTR));
+        pushButton_sha->setText(QApplication::translate("MainWindow", "SHA", Q_NULLPTR));
     } // retranslateUi
 
 };

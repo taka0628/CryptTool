@@ -6,6 +6,7 @@
 #include <aes_wind.h>
 #include <sha1_wind.h>
 #include <sha2_wind.h>
+#include <sha_ver_wind.h>
 #include <rsa_wind.h>
 
 namespace Ui {
@@ -29,12 +30,15 @@ private slots:
 
     void on_pushButton_rsa_pressed();
 
+    void on_pushButton_sha_clicked();
+
 private:
     Ui::MainWindow *ui;
     sub_test *sub_wind;
     aes_wind *aes_wind_;
-    sha_wind *sha_wind_;
-    sha2_wind *sha2_wind_;
+//    sha_wind *sha_wind_;
+//    sha2_wind *sha2_wind_;
+    sha_ver_wind *sha_ver_wind_;
     rsa_wind *rsa_wind_;
 
 };

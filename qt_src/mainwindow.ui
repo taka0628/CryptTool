@@ -110,16 +110,9 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QPushButton" name="pushButton_sha1">
+       <widget class="QPushButton" name="pushButton_sha">
         <property name="text">
-         <string>SHA-1</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_sha2">
-        <property name="text">
-         <string>SHA-2</string>
+         <string>SHA</string>
         </property>
        </widget>
       </item>

@@ -1,8 +1,5 @@
 #include "../include/sha_c.hpp"
 
-#define ERROR(comment) \
-    printf("[ERROR]\n\t%s: %d\n\t%s\n", __func__, __LINE__, comment);
-
 SHA_c::SHA_c()
 {
 }
@@ -162,6 +159,64 @@ string SHA_c::sha2_cal(const string &src, const SHA_c::SHA2_bit bit) const
     }
 
     return nullptr;
+}
+
+bool SHA_c::sha3_cal(const std::string &src, dynamic_mem_c &out, const SHA_c::SHA3_bit mode) const
+{
+    if (src.size() == 0 || out.get_size() == 0)
+    {
+        ERROR_NO_COMMENT;
+        return false;
+    }
+
+    const EVP_MD *md;
+    dynamic_mem_c buffer;
+
+    switch (mode)
+    {
+    case SHA_c::SHA3_bit::SHA_224:
+
+        md = EVP_sha3_224();
+        buffer.d_new(SHA224_DIGEST_LENGTH);
+
+        break;
+
+    case SHA_c::SHA3_bit::SHA_256:
+        md = EVP_sha3_256();
+        buffer.d_new(SHA256_DIGEST_LENGTH);
+
+        break;
+
+    case SHA_c::SHA3_bit::SHA_384:
+        md = EVP_sha3_384();
+        buffer.d_new(SHA384_DIGEST_LENGTH);
+
+        break;
+
+    case SHA_c::SHA3_bit::SHA_512:
+        md = EVP_sha3_512();
+        buffer.d_new(SHA512_DIGEST_LENGTH);
+
+        break;
+
+    default:
+        break;
+    }
+
+    EVP_MD_CTX *hashctx;
+    hashctx = EVP_MD_CTX_new();
+    EVP_DigestInit_ex(hashctx, md, NULL);
+    EVP_DigestUpdate(hashctx, src.c_str(), src.size());
+    unsigned int outlen;
+    EVP_DigestFinal_ex(hashctx, buffer.mem, &outlen);
+
+    if (out.set_data(buffer.mem, outlen) == false)
+    {
+        ERROR_NO_COMMENT;
+        return false;
+    }
+
+    return true;
 }
 
 string SHA_c::str2hex(const string &src) const

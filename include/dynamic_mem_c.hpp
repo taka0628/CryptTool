@@ -12,11 +12,13 @@
 #include <vector>
 #include <sstream>
 
+#include "macro.hpp"
+
 class dynamic_mem_c
 {
 private:
     dynamic_mem_c(const dynamic_mem_c &);
-    int size;
+    uint size;
 
 public:
     dynamic_mem_c();
@@ -28,6 +30,8 @@ public:
     void d_free();
     int get_size() const;
     void copy(std::string &dest, const uint size) const;
+    bool set_data(const u_char *in, const uint size);
+    void print_data() const;
 };
 
 #endif

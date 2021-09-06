@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = crypt_qt1.0.0
-DISTDIR = /home/taka/crypt_qt/build/.tmp/crypt_qt1.0.0
+DISTDIR = /home/taka/github/CryptTool/build/.tmp/crypt_qt1.0.0
 LINK          = g++
 LFLAGS        = 
 LIBS          = $(SUBLIBS) -lcrypto -lssl -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
@@ -60,12 +60,14 @@ SOURCES       = ../qt_src/main.cpp \
 		../qt_src/sub_test.cpp \
 		../src/RSA_c.cpp \
 		../src/dynamic_mem_c.cpp \
-		../qt_src/rsa_wind.cpp moc_mainwindow.cpp \
+		../qt_src/rsa_wind.cpp \
+		../qt_src/sha_ver_wind.cpp moc_mainwindow.cpp \
 		moc_aes_wind.cpp \
 		moc_sha1_wind.cpp \
 		moc_sha2_wind.cpp \
 		moc_sub_test.cpp \
-		moc_rsa_wind.cpp
+		moc_rsa_wind.cpp \
+		moc_sha_ver_wind.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		aes_wind.o \
@@ -77,12 +79,14 @@ OBJECTS       = main.o \
 		RSA_c.o \
 		dynamic_mem_c.o \
 		rsa_wind.o \
+		sha_ver_wind.o \
 		moc_mainwindow.o \
 		moc_aes_wind.o \
 		moc_sha1_wind.o \
 		moc_sha2_wind.o \
 		moc_sub_test.o \
-		moc_rsa_wind.o
+		moc_rsa_wind.o \
+		moc_sha_ver_wind.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -137,7 +141,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
-		../.qmake.stash \
+		../qt_src/.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -167,7 +171,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../qt_src/sub_test.h \
 		../include/RSA_c.hpp \
 		../include/dynamic_mem_c.hpp \
-		../qt_src/rsa_wind.h ../qt_src/main.cpp \
+		../qt_src/rsa_wind.h \
+		../qt_src/sha_ver_wind.h ../qt_src/main.cpp \
 		../qt_src/mainwindow.cpp \
 		../qt_src/aes_wind.cpp \
 		../src/aes_c.cpp \
@@ -177,7 +182,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../qt_src/sub_test.cpp \
 		../src/RSA_c.cpp \
 		../src/dynamic_mem_c.cpp \
-		../qt_src/rsa_wind.cpp
+		../qt_src/rsa_wind.cpp \
+		../qt_src/sha_ver_wind.cpp
 QMAKE_TARGET  = crypt_qt
 DESTDIR       = 
 TARGET        = crypt_qt
@@ -186,7 +192,7 @@ TARGET        = crypt_qt
 first: all
 ####### Build rules
 
-$(TARGET): ui_mainwindow.h ui_aes_wind.h ui_sha1_wind.h ui_sha2_wind.h ui_sub_test.h ui_rsa_wind.h $(OBJECTS)  
+$(TARGET): ui_mainwindow.h ui_aes_wind.h ui_sha1_wind.h ui_sha2_wind.h ui_sub_test.h ui_rsa_wind.h ui_sha_ver_wind.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../qt_src/crypt_qt.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -243,7 +249,7 @@ Makefile: ../qt_src/crypt_qt.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
-		../.qmake.stash \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -322,7 +328,7 @@ Makefile: ../qt_src/crypt_qt.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
-../.qmake.stash:
+.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
@@ -361,9 +367,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../qt_src/mainwindow.h ../qt_src/aes_wind.h ../include/aes_c.hpp ../include/aes_c.hpp ../include/sha_c.hpp ../qt_src/sha1_wind.h ../qt_src/sha2_wind.h ../qt_src/sub_test.h ../include/RSA_c.hpp ../include/dynamic_mem_c.hpp ../qt_src/rsa_wind.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../qt_src/main.cpp ../qt_src/mainwindow.cpp ../qt_src/aes_wind.cpp ../src/aes_c.cpp ../src/sha_c.cpp ../qt_src/sha1_wind.cpp ../qt_src/sha2_wind.cpp ../qt_src/sub_test.cpp ../src/RSA_c.cpp ../src/dynamic_mem_c.cpp ../qt_src/rsa_wind.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../qt_src/mainwindow.ui ../qt_src/aes_wind.ui ../qt_src/sha1_wind.ui ../qt_src/sha2_wind.ui ../qt_src/sub_test.ui ../qt_src/rsa_wind.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../qt_src/mainwindow.h ../qt_src/aes_wind.h ../include/aes_c.hpp ../include/aes_c.hpp ../include/sha_c.hpp ../qt_src/sha1_wind.h ../qt_src/sha2_wind.h ../qt_src/sub_test.h ../include/RSA_c.hpp ../include/dynamic_mem_c.hpp ../qt_src/rsa_wind.h ../qt_src/sha_ver_wind.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../qt_src/main.cpp ../qt_src/mainwindow.cpp ../qt_src/aes_wind.cpp ../src/aes_c.cpp ../src/sha_c.cpp ../qt_src/sha1_wind.cpp ../qt_src/sha2_wind.cpp ../qt_src/sub_test.cpp ../src/RSA_c.cpp ../src/dynamic_mem_c.cpp ../qt_src/rsa_wind.cpp ../qt_src/sha_ver_wind.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../qt_src/mainwindow.ui ../qt_src/aes_wind.ui ../qt_src/sha1_wind.ui ../qt_src/sha2_wind.ui ../qt_src/sub_test.ui ../qt_src/rsa_wind.ui ../qt_src/sha_ver_wind.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -373,6 +379,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) $(TARGET) 
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -394,49 +401,76 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_aes_wind.cpp moc_sha1_wind.cpp moc_sha2_wind.cpp moc_sub_test.cpp moc_rsa_wind.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_aes_wind.cpp moc_sha1_wind.cpp moc_sha2_wind.cpp moc_sub_test.cpp moc_rsa_wind.cpp moc_sha_ver_wind.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_aes_wind.cpp moc_sha1_wind.cpp moc_sha2_wind.cpp moc_sub_test.cpp moc_rsa_wind.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_aes_wind.cpp moc_sha1_wind.cpp moc_sha2_wind.cpp moc_sub_test.cpp moc_rsa_wind.cpp moc_sha_ver_wind.cpp
 moc_mainwindow.cpp: ../qt_src/sub_test.h \
 		../qt_src/aes_wind.h \
+		ui_aes_wind.h \
+		../include/aes_c.hpp \
 		../qt_src/sha1_wind.h \
+		ui_sha1_wind.h \
+		../include/sha_c.hpp \
+		../include/dynamic_mem_c.hpp \
+		../include/macro.hpp \
 		../qt_src/sha2_wind.h \
+		ui_sha2_wind.h \
+		../qt_src/sha_ver_wind.h \
 		../qt_src/rsa_wind.h \
+		ui_rsa_wind.h \
+		../include/RSA_c.hpp \
 		../qt_src/mainwindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/taka/crypt_qt/qt_src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt_src/mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/taka/github/CryptTool/qt_src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt_src/mainwindow.h -o moc_mainwindow.cpp
 
-moc_aes_wind.cpp: ../qt_src/aes_wind.h \
+moc_aes_wind.cpp: ui_aes_wind.h \
+		../include/aes_c.hpp \
+		../qt_src/aes_wind.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/taka/crypt_qt/qt_src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt_src/aes_wind.h -o moc_aes_wind.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/taka/github/CryptTool/qt_src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt_src/aes_wind.h -o moc_aes_wind.cpp
 
-moc_sha1_wind.cpp: ../qt_src/sha1_wind.h \
+moc_sha1_wind.cpp: ui_sha1_wind.h \
+		../include/sha_c.hpp \
+		../include/dynamic_mem_c.hpp \
+		../include/macro.hpp \
+		../qt_src/sha1_wind.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/taka/crypt_qt/qt_src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt_src/sha1_wind.h -o moc_sha1_wind.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/taka/github/CryptTool/qt_src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt_src/sha1_wind.h -o moc_sha1_wind.cpp
 
-moc_sha2_wind.cpp: ../qt_src/sha2_wind.h \
+moc_sha2_wind.cpp: ui_sha2_wind.h \
+		../include/sha_c.hpp \
+		../include/dynamic_mem_c.hpp \
+		../include/macro.hpp \
+		../qt_src/sha2_wind.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/taka/crypt_qt/qt_src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt_src/sha2_wind.h -o moc_sha2_wind.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/taka/github/CryptTool/qt_src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt_src/sha2_wind.h -o moc_sha2_wind.cpp
 
 moc_sub_test.cpp: ../qt_src/sub_test.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/taka/crypt_qt/qt_src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt_src/sub_test.h -o moc_sub_test.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/taka/github/CryptTool/qt_src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt_src/sub_test.h -o moc_sub_test.cpp
 
-moc_rsa_wind.cpp: ../qt_src/rsa_wind.h \
+moc_rsa_wind.cpp: ui_rsa_wind.h \
+		../include/RSA_c.hpp \
+		../qt_src/rsa_wind.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/taka/crypt_qt/qt_src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt_src/rsa_wind.h -o moc_rsa_wind.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/taka/github/CryptTool/qt_src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt_src/rsa_wind.h -o moc_rsa_wind.cpp
+
+moc_sha_ver_wind.cpp: ../qt_src/sha_ver_wind.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/taka/github/CryptTool/qt_src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt_src/sha_ver_wind.h -o moc_sha_ver_wind.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_aes_wind.h ui_sha1_wind.h ui_sha2_wind.h ui_sub_test.h ui_rsa_wind.h
+compiler_uic_make_all: ui_mainwindow.h ui_aes_wind.h ui_sha1_wind.h ui_sha2_wind.h ui_sub_test.h ui_rsa_wind.h ui_sha_ver_wind.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_aes_wind.h ui_sha1_wind.h ui_sha2_wind.h ui_sub_test.h ui_rsa_wind.h
+	-$(DEL_FILE) ui_mainwindow.h ui_aes_wind.h ui_sha1_wind.h ui_sha2_wind.h ui_sub_test.h ui_rsa_wind.h ui_sha_ver_wind.h
 ui_mainwindow.h: ../qt_src/mainwindow.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic ../qt_src/mainwindow.ui -o ui_mainwindow.h
@@ -461,6 +495,10 @@ ui_rsa_wind.h: ../qt_src/rsa_wind.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic ../qt_src/rsa_wind.ui -o ui_rsa_wind.h
 
+ui_sha_ver_wind.h: ../qt_src/sha_ver_wind.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic ../qt_src/sha_ver_wind.ui -o ui_sha_ver_wind.h
+
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
 compiler_yacc_impl_make_all:
@@ -474,35 +512,65 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 main.o: ../qt_src/main.cpp ../qt_src/mainwindow.h \
 		../qt_src/sub_test.h \
 		../qt_src/aes_wind.h \
+		ui_aes_wind.h \
+		../include/aes_c.hpp \
 		../qt_src/sha1_wind.h \
+		ui_sha1_wind.h \
+		../include/sha_c.hpp \
+		../include/dynamic_mem_c.hpp \
+		../include/macro.hpp \
 		../qt_src/sha2_wind.h \
-		../qt_src/rsa_wind.h
+		ui_sha2_wind.h \
+		../qt_src/sha_ver_wind.h \
+		../qt_src/rsa_wind.h \
+		ui_rsa_wind.h \
+		../include/RSA_c.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../qt_src/main.cpp
 
 mainwindow.o: ../qt_src/mainwindow.cpp ../qt_src/mainwindow.h \
 		../qt_src/sub_test.h \
 		../qt_src/aes_wind.h \
+		ui_aes_wind.h \
+		../include/aes_c.hpp \
 		../qt_src/sha1_wind.h \
+		ui_sha1_wind.h \
+		../include/sha_c.hpp \
+		../include/dynamic_mem_c.hpp \
+		../include/macro.hpp \
 		../qt_src/sha2_wind.h \
+		ui_sha2_wind.h \
+		../qt_src/sha_ver_wind.h \
 		../qt_src/rsa_wind.h \
+		ui_rsa_wind.h \
+		../include/RSA_c.hpp \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../qt_src/mainwindow.cpp
 
 aes_wind.o: ../qt_src/aes_wind.cpp ../qt_src/aes_wind.h \
-		ui_aes_wind.h
+		ui_aes_wind.h \
+		../include/aes_c.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o aes_wind.o ../qt_src/aes_wind.cpp
 
 aes_c.o: ../src/aes_c.cpp ../include/aes_c.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o aes_c.o ../src/aes_c.cpp
 
-sha_c.o: ../src/sha_c.cpp ../include/sha_c.hpp
+sha_c.o: ../src/sha_c.cpp ../include/sha_c.hpp \
+		../include/dynamic_mem_c.hpp \
+		../include/macro.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sha_c.o ../src/sha_c.cpp
 
-sha1_wind.o: ../qt_src/sha1_wind.cpp ../qt_src/sha1_wind.h
+sha1_wind.o: ../qt_src/sha1_wind.cpp ../qt_src/sha1_wind.h \
+		ui_sha1_wind.h \
+		../include/sha_c.hpp \
+		../include/dynamic_mem_c.hpp \
+		../include/macro.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sha1_wind.o ../qt_src/sha1_wind.cpp
 
 sha2_wind.o: ../qt_src/sha2_wind.cpp ../qt_src/sha2_wind.h \
-		ui_sha2_wind.h
+		ui_sha2_wind.h \
+		../include/sha_c.hpp \
+		../include/dynamic_mem_c.hpp \
+		../include/macro.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sha2_wind.o ../qt_src/sha2_wind.cpp
 
 sub_test.o: ../qt_src/sub_test.cpp ../qt_src/sub_test.h \
@@ -510,15 +578,22 @@ sub_test.o: ../qt_src/sub_test.cpp ../qt_src/sub_test.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sub_test.o ../qt_src/sub_test.cpp
 
 RSA_c.o: ../src/RSA_c.cpp ../include/RSA_c.hpp \
-		../include/dynamic_mem_c.hpp
+		../include/dynamic_mem_c.hpp \
+		../include/macro.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o RSA_c.o ../src/RSA_c.cpp
 
-dynamic_mem_c.o: ../src/dynamic_mem_c.cpp ../include/dynamic_mem_c.hpp
+dynamic_mem_c.o: ../src/dynamic_mem_c.cpp ../include/dynamic_mem_c.hpp \
+		../include/macro.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dynamic_mem_c.o ../src/dynamic_mem_c.cpp
 
 rsa_wind.o: ../qt_src/rsa_wind.cpp ../qt_src/rsa_wind.h \
-		ui_rsa_wind.h
+		ui_rsa_wind.h \
+		../include/RSA_c.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rsa_wind.o ../qt_src/rsa_wind.cpp
+
+sha_ver_wind.o: ../qt_src/sha_ver_wind.cpp ../qt_src/sha_ver_wind.h \
+		ui_sha_ver_wind.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sha_ver_wind.o ../qt_src/sha_ver_wind.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
@@ -537,6 +612,9 @@ moc_sub_test.o: moc_sub_test.cpp
 
 moc_rsa_wind.o: moc_rsa_wind.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_rsa_wind.o moc_rsa_wind.cpp
+
+moc_sha_ver_wind.o: moc_sha_ver_wind.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_sha_ver_wind.o moc_sha_ver_wind.cpp
 
 ####### Install
 

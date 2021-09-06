@@ -24,18 +24,6 @@ void MainWindow::on_pushButton_aes_pressed()
     aes_wind_->show();
 }
 
-void MainWindow::on_pushButton_sha1_pressed()
-{
-//    sha_wind_ = new sha_wind(this);
-//    sha_wind_->show();
-}
-
-void MainWindow::on_pushButton_sha2_pressed()
-{
-//    sha2_wind_ = new sha2_wind(this);
-//    sha2_wind_->show();
-}
-
 void MainWindow::on_pushButton_rsa_pressed()
 {
     rsa_wind_ = new rsa_wind(this);
@@ -44,6 +32,12 @@ void MainWindow::on_pushButton_rsa_pressed()
 
 void MainWindow::on_pushButton_sha_clicked()
 {
-    sha_ver_wind_ = new sha_ver_wind(this);
-    sha_ver_wind_->show();
+//    sha_ver_wind_ = new sha_ver_wind(this);
+//    sha_ver_wind_->show();
+}
+
+void MainWindow::on_pushButton_sha_pressed()
+{
+    sha_mode_wind_ = new sha_mode_wind(this);
+    sha_mode_wind_->show();
 }

@@ -36,7 +36,7 @@ SOURCES += \
     ../src/RSA_c.cpp \
     ../src/dynamic_mem_c.cpp \
     rsa_wind.cpp \
-    sha_ver_wind.cpp
+    sha_mode_wind.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -50,7 +50,7 @@ HEADERS += \
     ../include/RSA_c.hpp \
     ../include/dynamic_mem_c.hpp \
     rsa_wind.h \
-    sha_ver_wind.h
+    sha_mode_wind.h
 
 FORMS += \
         mainwindow.ui \
@@ -59,4 +59,4 @@ FORMS += \
     sha2_wind.ui \
     sub_test.ui \
     rsa_wind.ui \
-    sha_ver_wind.ui
+    sha_mode_wind.ui

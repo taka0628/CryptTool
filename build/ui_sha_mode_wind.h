@@ -9,6 +9,7 @@
 #ifndef UI_SHA_MODE_WIND_H
 #define UI_SHA_MODE_WIND_H
 
+#include <QtCore/QLocale>
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
@@ -103,6 +104,10 @@ public:
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
         lineEdit_input = new QLineEdit(horizontalLayoutWidget_3);
         lineEdit_input->setObjectName(QStringLiteral("lineEdit_input"));
+        lineEdit_input->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
+        lineEdit_input->setInputMask(QStringLiteral(""));
+        lineEdit_input->setText(QStringLiteral(""));
+        lineEdit_input->setPlaceholderText(QStringLiteral(""));
 
         horizontalLayout_2->addWidget(lineEdit_input);
 

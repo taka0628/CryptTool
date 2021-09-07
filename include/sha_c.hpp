@@ -49,7 +49,7 @@ public:
     bool sha3_cal(const std::string &src, dynamic_mem_c &out, const SHA3_bit mode) const;
 
     std::string str2hex(const std::string &src) const;
-    std::string str2hex(const std::vector<u_char> &src) const;
+    std::string str2hex(const dynamic_mem_c &src) const;
 };
 
 #endif

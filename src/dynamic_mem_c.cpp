@@ -22,6 +22,11 @@ void dynamic_mem_c::d_new(uint size)
     {
         return;
     }
+    if (this->mem != nullptr)
+    {
+        delete this->mem;
+        this->mem = nullptr;
+    }
 
     this->mem = new unsigned char[size];
     this->size = size;
@@ -75,7 +80,16 @@ void dynamic_mem_c::print_data() const
     }
     for (auto i = 0; i < this->get_size(); i++)
     {
-        cout << this->mem[i];
+        printf("%0xd", this->mem[i]);
     }
     cout << endl;
+}
+
+void dynamic_mem_c::clear()
+{
+    if (this->mem == nullptr || this->get_size() == 0)
+    {
+        return;
+    }
+    memset(this->mem, 0, this->get_size());
 }

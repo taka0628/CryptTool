@@ -51,3 +51,19 @@ TEST(Sha3Test, Sha512Test)
     EXPECT_TRUE(sha.sha3_cal(test_data, out, SHA_c::SHA3_bit::SHA_512));
     out.d_free();
 }
+
+TEST(hexTest, hex2bin)
+{
+    string hex("a");
+    SHA_c sha;
+    dynamic_mem_c bin;
+    bin.d_new(10);
+    ASSERT_TRUE(sha.hex2bin(hex, bin));
+    printf("hex: %d\n", bin.mem[0]);
+
+    hex.clear();
+    hex += "A";
+    ASSERT_TRUE(sha.hex2bin(hex, bin));
+
+    printf("hex: %d\n", bin.mem[0]);
+}

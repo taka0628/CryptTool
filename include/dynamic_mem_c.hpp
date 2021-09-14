@@ -32,6 +32,7 @@ public:
     void copy(std::string &dest, const uint size) const;
     bool set_data(const u_char *in, const uint size);
     void print_data() const;
+    void clear();
 };
 
 #endif

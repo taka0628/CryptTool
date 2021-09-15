@@ -1,0 +1,11 @@
+*.o
+.*/
+.*
+!.*.
+!.gitignore
+*peda*
+
+RSA_*_key
+
+
+build/*.o

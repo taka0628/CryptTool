@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDialog>
+#include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
@@ -58,12 +59,13 @@ public:
     QLabel *label_status_mode;
     QLabel *label_status_bit;
     QTextBrowser *textBrowser_result;
+    QFrame *frame;
 
     void setupUi(QDialog *aes_wind)
     {
         if (aes_wind->objectName().isEmpty())
             aes_wind->setObjectName(QStringLiteral("aes_wind"));
-        aes_wind->resize(418, 537);
+        aes_wind->resize(419, 537);
         horizontalLayoutWidget = new QWidget(aes_wind);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
         horizontalLayoutWidget->setGeometry(QRect(20, 20, 311, 41));
@@ -172,6 +174,24 @@ public:
         textBrowser_result = new QTextBrowser(aes_wind);
         textBrowser_result->setObjectName(QStringLiteral("textBrowser_result"));
         textBrowser_result->setGeometry(QRect(20, 320, 311, 81));
+        frame = new QFrame(aes_wind);
+        frame->setObjectName(QStringLiteral("frame"));
+        frame->setGeometry(QRect(19, 19, 311, 41));
+        frame->setFrameShape(QFrame::StyledPanel);
+        frame->setFrameShadow(QFrame::Raised);
+        frame->raise();
+        horizontalLayoutWidget->raise();
+        horizontalLayoutWidget_2->raise();
+        label->raise();
+        horizontalLayoutWidget_3->raise();
+        label_2->raise();
+        textEdit_in->raise();
+        label_3->raise();
+        pushButton_enc->raise();
+        pushButton_dec->raise();
+        pushButton_cpy->raise();
+        groupBox_status->raise();
+        textBrowser_result->raise();
 
         retranslateUi(aes_wind);
 

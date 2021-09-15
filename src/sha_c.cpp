@@ -10,19 +10,41 @@ SHA_c::~SHA_c()
 
 using namespace std;
 
-string SHA_c::sha1_cal(const string &src) const
+string SHA_c::sha1_cal(const string &src, const bool isHex) const
 {
-
+    if (src.empty())
+    {
+        return nullptr;
+    }
+    if (isHex && this->isHex(src) == false)
+    {
+        ERROR_NO_COMMENT;
+        return nullptr;
+    }
     SHA_CTX sha_ctx;
     if (!(SHA1_Init(&sha_ctx)))
     {
         ERROR("SHA1_Init");
         return nullptr;
     }
-    if (!(SHA1_Update(&sha_ctx, (void *)src.c_str(), src.length())))
+    if (isHex)
     {
-        ERROR("SHA1_Update");
-        return nullptr;
+        dynamic_mem_c hex;
+        hex.d_new(src.size());
+        this->hex2bin(src, hex);
+        if (!(SHA1_Update(&sha_ctx, (void *)hex.mem, hex.get_size())))
+        {
+            ERROR("SHA1_Update");
+            return nullptr;
+        }
+    }
+    else
+    {
+        if (!(SHA1_Update(&sha_ctx, (void *)src.c_str(), src.length())))
+        {
+            ERROR("SHA1_Update");
+            return nullptr;
+        }
     }
 
     string result;
@@ -42,6 +64,10 @@ string SHA_c::sha1_cal(const string &src) const
 
 string SHA_c::sha2_cal(const string &src, const SHA_c::SHA2_bit bit) const
 {
+    if (src.empty())
+    {
+        return nullptr;
+    }
     string result;
     if (bit == SHA_c::SHA2_bit::SHA_224)
     {
@@ -163,7 +189,7 @@ string SHA_c::sha2_cal(const string &src, const SHA_c::SHA2_bit bit) const
 
 bool SHA_c::sha2_cal(const std::string &hex_in, dynamic_mem_c &out, const SHA2_bit bit) const
 {
-    if (this->isHex(hex_in) == false || out.get_size() < hex_in.size())
+    if (this->isHex(hex_in) == false)
     {
         cout << hex_in.size() << endl
              << out.get_size() << endl;
@@ -172,7 +198,7 @@ bool SHA_c::sha2_cal(const std::string &hex_in, dynamic_mem_c &out, const SHA2_b
         return false;
     }
     dynamic_mem_c hex;
-    hex.d_new(hex_in.size());
+    hex.d_new(hex_in.size() * 2);
     this->hex2bin(hex_in, hex);
 
     if (bit == SHA_c::SHA2_bit::SHA_224)
@@ -203,7 +229,7 @@ bool SHA_c::sha2_cal(const std::string &hex_in, dynamic_mem_c &out, const SHA2_b
             out.mem[i] = buf.mem[i];
         }
     }
-    if (bit == SHA_c::SHA2_bit::SHA_256)
+    else if (bit == SHA_c::SHA2_bit::SHA_256)
     {
         SHA256_CTX ctx;
         dynamic_mem_c buf;
@@ -231,7 +257,7 @@ bool SHA_c::sha2_cal(const std::string &hex_in, dynamic_mem_c &out, const SHA2_b
             out.mem[i] = buf.mem[i];
         }
     }
-    if (bit == SHA_c::SHA2_bit::SHA_384)
+    else if (bit == SHA_c::SHA2_bit::SHA_384)
     {
         SHA512_CTX ctx;
         dynamic_mem_c buf;
@@ -259,7 +285,7 @@ bool SHA_c::sha2_cal(const std::string &hex_in, dynamic_mem_c &out, const SHA2_b
             out.mem[i] = buf.mem[i];
         }
     }
-    if (bit == SHA_c::SHA2_bit::SHA_512)
+    else if (bit == SHA_c::SHA2_bit::SHA_512)
     {
         SHA512_CTX ctx;
         dynamic_mem_c buf;
@@ -296,9 +322,14 @@ bool SHA_c::sha2_cal(const std::string &hex_in, dynamic_mem_c &out, const SHA2_b
     return true;
 }
 
-bool SHA_c::sha3_cal(const std::string &src, dynamic_mem_c &out, const SHA_c::SHA3_bit mode) const
+bool SHA_c::sha3_cal(const std::string &src, dynamic_mem_c &out, const SHA_c::SHA3_bit mode, const bool isHex) const
 {
     if (src.size() == 0 || out.get_size() == 0)
+    {
+        ERROR_NO_COMMENT;
+        return false;
+    }
+    if (isHex && this->isHex(src) == false)
     {
         ERROR_NO_COMMENT;
         return false;
@@ -341,10 +372,25 @@ bool SHA_c::sha3_cal(const std::string &src, dynamic_mem_c &out, const SHA_c::SH
     EVP_MD_CTX *hashctx;
     hashctx = EVP_MD_CTX_new();
     EVP_DigestInit_ex(hashctx, md, NULL);
-    EVP_DigestUpdate(hashctx, src.c_str(), src.size());
+    dynamic_mem_c hex;
+    switch (isHex)
+    {
+    case true:
+        hex.d_new(buffer.get_size());
+        this->hex2bin(src, hex);
+        EVP_DigestUpdate(hashctx, hex.mem, src.size());
+        break;
+
+    case false:
+        EVP_DigestUpdate(hashctx, src.c_str(), src.size());
+        break;
+
+    default:
+        ERROR_NO_COMMENT;
+        break;
+    }
     unsigned int outlen;
     EVP_DigestFinal_ex(hashctx, buffer.mem, &outlen);
-
     if (out.set_data(buffer.mem, outlen) == false)
     {
         ERROR_NO_COMMENT;
@@ -385,9 +431,18 @@ bool SHA_c::hex2bin(const std::string hex, dynamic_mem_c &out) const
         ERROR_NO_COMMENT;
         return false;
     }
+    char buf[3] = {0};
+    dynamic_mem_c bin;
+    bin.d_new(hex.size());
+    int binsize = hex.size();
+    char *pch;
     for (size_t i = 0; i < hex.size(); i += 2)
     {
-        out.mem[i] = stol(hex, nullptr, 16);
+        buf[0] = hex[i];
+        buf[1] = hex[i + 1];
+        pch = buf;
+        bin.mem[i / 2] = (unsigned char)strtoul(pch, NULL, 16);
+        out.mem[i] = bin.mem[i / 2];
     }
     return true;
 }
@@ -398,11 +453,24 @@ bool SHA_c::isHex(const std::string hex) const
     {
         return false;
     }
-    string buf;
+    const char *buf;
+    buf = hex.c_str();
+
     for (size_t i = 0; i < hex.size(); i++)
     {
-        buf = hex[i];
-        if (isxdigit(stoi(buf, nullptr, 10)) == 0)
+        if (buf[i] >= '0' && buf[i] <= '9')
+        {
+            continue;
+        }
+        else if (buf[i] >= 'a' && buf[i] <= 'f')
+        {
+            continue;
+        }
+        else if (buf[i] >= 'A' && buf[i] <= 'F')
+        {
+            continue;
+        }
+        else
         {
             return false;
         }

@@ -110,6 +110,7 @@ int sha_mode_wind::get_size(const string src){
             size += 8*3;
         }
     }
+    return size;
 }
 
 void sha_mode_wind::on_lineEdit_input_textChanged(const QString &arg1)
@@ -120,11 +121,20 @@ void sha_mode_wind::on_lineEdit_input_textChanged(const QString &arg1)
     if(CurrentShaBit != 224 && CurrentShaBit != 256 && CurrentShaBit != 384 && CurrentShaBit != 512){
         return;
     }
+    SHA_c sha;
+    if( ui->radioButton_hex->isChecked() && sha.isHex(arg1.toStdString()) == false){
+        return;
+    }
+
     string input_text = arg1.toStdString();
     QString output;
     ostringstream oss;
     int iv_size = input_text.size();
-    iv_size = iv_size * 8;
+    if(ui->radioButton_string->isChecked()){
+        iv_size = iv_size * 8;
+    }else{
+        iv_size = iv_size * 4;
+    }
     oss<< iv_size;
     output.push_back(oss.str().c_str());
 
@@ -136,28 +146,68 @@ void sha_mode_wind::on_lineEdit_input_textChanged(const QString &arg1)
         return;
     }
 
-    SHA_c sha;
     string hash;
     dynamic_mem_c hashBn;
+
+    //入力モード確認
+    bool isHex = false;
+    if(ui->radioButton_hex->isChecked()){
+        isHex = true;
+    }else{
+        isHex = false;
+    }
+
     switch (CurrentShaMode) {
     case 1:
-        hash = sha.sha1_cal(input_text);
+        hash = sha.sha1_cal(input_text, isHex);
         break;
     case 2:
-        switch (CurrentShaBit) {
-        case 224:
-            hash = sha.sha2_cal(input_text, SHA_c::SHA2_bit::SHA_224);
+
+        switch (isHex) {
+        case true:
+            switch (CurrentShaBit) {
+            case 224:
+                hashBn.d_new(SHA224_DIGEST_LENGTH);
+                sha.sha2_cal(input_text, hashBn,SHA_c::SHA2_bit::SHA_224);
+                hash = hashBn.to_string();
+                break;
+            case 256:
+                hashBn.d_new(SHA256_DIGEST_LENGTH);
+                sha.sha2_cal(input_text, hashBn,SHA_c::SHA2_bit::SHA_256);
+                hash = hashBn.to_string();
+                break;
+            case 384:
+                hashBn.d_new(SHA384_DIGEST_LENGTH);
+                sha.sha2_cal(input_text, hashBn,SHA_c::SHA2_bit::SHA_384);
+                hash = hashBn.to_string();
+                break;
+            case 512:
+                hashBn.d_new(SHA512_DIGEST_LENGTH);
+                sha.sha2_cal(input_text, hashBn,SHA_c::SHA2_bit::SHA_512);
+                hash = hashBn.to_string();
+                break;
+            default:
+                break;
+            }
             break;
-        case 256:
-            hash = sha.sha2_cal(input_text, SHA_c::SHA2_bit::SHA_256);
-            break;
-        case 384:
-            hash = sha.sha2_cal(input_text, SHA_c::SHA2_bit::SHA_384);
-            break;
-        case 512:
-            hash = sha.sha2_cal(input_text, SHA_c::SHA2_bit::SHA_512);
-            break;
-        default:
+
+        case false:
+            switch (CurrentShaBit) {
+            case 224:
+                hash = sha.sha2_cal(input_text, SHA_c::SHA2_bit::SHA_224);
+                break;
+            case 256:
+                hash = sha.sha2_cal(input_text, SHA_c::SHA2_bit::SHA_256);
+                break;
+            case 384:
+                hash = sha.sha2_cal(input_text, SHA_c::SHA2_bit::SHA_384);
+                break;
+            case 512:
+                hash = sha.sha2_cal(input_text, SHA_c::SHA2_bit::SHA_512);
+                break;
+            default:
+                break;
+            }
             break;
         }
         break;
@@ -165,19 +215,19 @@ void sha_mode_wind::on_lineEdit_input_textChanged(const QString &arg1)
         switch (CurrentShaBit) {
         case 224:
             hashBn.d_new(SHA224_DIGEST_LENGTH);
-            sha.sha3_cal(input_text, hashBn,SHA_c::SHA3_bit::SHA_224);
+            sha.sha3_cal(input_text, hashBn,SHA_c::SHA3_bit::SHA_224, isHex);
             break;
         case 256:
             hashBn.d_new(SHA256_DIGEST_LENGTH);
-            sha.sha3_cal(input_text, hashBn,SHA_c::SHA3_bit::SHA_256);
+            sha.sha3_cal(input_text, hashBn,SHA_c::SHA3_bit::SHA_256, isHex);
             break;
         case 384:
             hashBn.d_new(SHA384_DIGEST_LENGTH);
-            sha.sha3_cal(input_text, hashBn,SHA_c::SHA3_bit::SHA_384);
+            sha.sha3_cal(input_text, hashBn,SHA_c::SHA3_bit::SHA_384, isHex);
             break;
         case 512:
             hashBn.d_new(SHA512_DIGEST_LENGTH);
-            sha.sha3_cal(input_text, hashBn,SHA_c::SHA3_bit::SHA_512);
+            sha.sha3_cal(input_text, hashBn,SHA_c::SHA3_bit::SHA_512, isHex);
             break;
         default:
             break;
@@ -205,4 +255,20 @@ void sha_mode_wind::on_lineEdit_input_textChanged(const QString &arg1)
         ui->label_hash_mode->setText("SHA-3");
     }
 
+}
+
+void sha_mode_wind::on_radioButton_string_clicked()
+{
+    this->on_lineEdit_input_textChanged(ui->lineEdit_input->text());
+}
+
+void sha_mode_wind::on_radioButton_hex_clicked()
+{
+    this->on_lineEdit_input_textChanged(ui->lineEdit_input->text());
+}
+
+void sha_mode_wind::on_pushButton_clicked()
+{
+    ui->textBrowser_hash->selectAll();
+    ui->textBrowser_hash->copy();
 }

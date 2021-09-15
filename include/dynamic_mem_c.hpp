@@ -33,6 +33,7 @@ public:
     bool set_data(const u_char *in, const uint size);
     void print_data() const;
     void clear();
+    std::string to_string() const;
 };
 
 #endif

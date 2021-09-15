@@ -47,10 +47,10 @@ public:
     };
 
     std::string
-    sha1_cal(const std::string &src) const;
+    sha1_cal(const std::string &src, const bool isHex) const;
     std::string sha2_cal(const std::string &src, const SHA2_bit bit) const;
     bool sha2_cal(const std::string &hex, dynamic_mem_c &out, const SHA2_bit bit) const;
-    bool sha3_cal(const std::string &src, dynamic_mem_c &out, const SHA3_bit mode) const;
+    bool sha3_cal(const std::string &src, dynamic_mem_c &out, const SHA3_bit mode, const bool isHex) const;
 
     std::string str2hex(const std::string &src) const;
     std::string str2hex(const dynamic_mem_c &src) const;

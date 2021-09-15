@@ -170,9 +170,6 @@ string aes_c::hex2str(const string hex) const
 #if 1
         bin[i / 2] = (unsigned char)strtoul(pch, NULL, 16);
         cout << "strtoil: " << strtoul(pch, NULL, 16) << endl;
-        // result[i / 2] = char_out;
-        // result[i / 2 + 1] = NULL;
-        // result.push_back(char_out);
         result.push_back(bin[i / 2]);
 #else
         bin[i / 2] = (char)strtoul(pch, NULL, 16);

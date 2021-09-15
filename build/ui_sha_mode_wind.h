@@ -22,6 +22,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QWidget>
@@ -60,12 +61,19 @@ public:
     QLabel *label_2;
     QFrame *frame;
     QFrame *frame_2;
+    QWidget *horizontalLayoutWidget_4;
+    QHBoxLayout *horizontalLayout;
+    QRadioButton *radioButton_string;
+    QRadioButton *radioButton_hex;
+    QLabel *label_5;
+    QFrame *frame_3;
+    QPushButton *pushButton;
 
     void setupUi(QDialog *sha_mode_wind)
     {
         if (sha_mode_wind->objectName().isEmpty())
             sha_mode_wind->setObjectName(QStringLiteral("sha_mode_wind"));
-        sha_mode_wind->resize(403, 492);
+        sha_mode_wind->resize(403, 534);
         horizontalLayoutWidget_2 = new QWidget(sha_mode_wind);
         horizontalLayoutWidget_2->setObjectName(QStringLiteral("horizontalLayoutWidget_2"));
         horizontalLayoutWidget_2->setGeometry(QRect(40, 110, 321, 31));
@@ -95,7 +103,7 @@ public:
 
         groupBox_2 = new QGroupBox(sha_mode_wind);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        groupBox_2->setGeometry(QRect(40, 150, 321, 51));
+        groupBox_2->setGeometry(QRect(40, 210, 321, 51));
         horizontalLayoutWidget_3 = new QWidget(groupBox_2);
         horizontalLayoutWidget_3->setObjectName(QStringLiteral("horizontalLayoutWidget_3"));
         horizontalLayoutWidget_3->setGeometry(QRect(0, 20, 321, 31));
@@ -120,7 +128,7 @@ public:
         horizontalLayout_2->setStretch(1, 2);
         groupBox_4 = new QGroupBox(sha_mode_wind);
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
-        groupBox_4->setGeometry(QRect(40, 370, 321, 80));
+        groupBox_4->setGeometry(QRect(40, 430, 321, 80));
         gridLayoutWidget = new QWidget(groupBox_4);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
         gridLayoutWidget->setGeometry(QRect(-1, 20, 321, 61));
@@ -153,7 +161,7 @@ public:
         gridLayout->setColumnStretch(1, 10);
         groupBox_3 = new QGroupBox(sha_mode_wind);
         groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
-        groupBox_3->setGeometry(QRect(40, 210, 321, 141));
+        groupBox_3->setGeometry(QRect(40, 270, 321, 141));
         textBrowser_hash = new QTextBrowser(groupBox_3);
         textBrowser_hash->setObjectName(QStringLiteral("textBrowser_hash"));
         textBrowser_hash->setGeometry(QRect(0, 20, 321, 121));
@@ -197,6 +205,35 @@ public:
         frame_2->setGeometry(QRect(40, 50, 321, 31));
         frame_2->setFrameShape(QFrame::StyledPanel);
         frame_2->setFrameShadow(QFrame::Raised);
+        horizontalLayoutWidget_4 = new QWidget(sha_mode_wind);
+        horizontalLayoutWidget_4->setObjectName(QStringLiteral("horizontalLayoutWidget_4"));
+        horizontalLayoutWidget_4->setGeometry(QRect(40, 170, 321, 31));
+        horizontalLayout = new QHBoxLayout(horizontalLayoutWidget_4);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        radioButton_string = new QRadioButton(horizontalLayoutWidget_4);
+        radioButton_string->setObjectName(QStringLiteral("radioButton_string"));
+        radioButton_string->setChecked(true);
+
+        horizontalLayout->addWidget(radioButton_string);
+
+        radioButton_hex = new QRadioButton(horizontalLayoutWidget_4);
+        radioButton_hex->setObjectName(QStringLiteral("radioButton_hex"));
+
+        horizontalLayout->addWidget(radioButton_hex);
+
+        label_5 = new QLabel(sha_mode_wind);
+        label_5->setObjectName(QStringLiteral("label_5"));
+        label_5->setGeometry(QRect(40, 150, 91, 17));
+        frame_3 = new QFrame(sha_mode_wind);
+        frame_3->setObjectName(QStringLiteral("frame_3"));
+        frame_3->setGeometry(QRect(40, 169, 321, 31));
+        frame_3->setFrameShape(QFrame::StyledPanel);
+        frame_3->setFrameShadow(QFrame::Raised);
+        pushButton = new QPushButton(sha_mode_wind);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(360, 386, 31, 25));
+        frame_3->raise();
         frame->raise();
         frame_2->raise();
         horizontalLayoutWidget_2->raise();
@@ -206,6 +243,9 @@ public:
         label->raise();
         horizontalLayoutWidget->raise();
         label_2->raise();
+        horizontalLayoutWidget_4->raise();
+        label_5->raise();
+        pushButton->raise();
 
         retranslateUi(sha_mode_wind);
 
@@ -232,6 +272,10 @@ public:
         radioButton_sha2->setText(QApplication::translate("sha_mode_wind", "SHA-2", Q_NULLPTR));
         radioButton_sha3->setText(QApplication::translate("sha_mode_wind", "SHA-3", Q_NULLPTR));
         label_2->setText(QApplication::translate("sha_mode_wind", "Hash Bit", Q_NULLPTR));
+        radioButton_string->setText(QApplication::translate("sha_mode_wind", "string", Q_NULLPTR));
+        radioButton_hex->setText(QApplication::translate("sha_mode_wind", "0x", Q_NULLPTR));
+        label_5->setText(QApplication::translate("sha_mode_wind", "Input mode", Q_NULLPTR));
+        pushButton->setText(QApplication::translate("sha_mode_wind", "cpy", Q_NULLPTR));
     } // retranslateUi
 
 };

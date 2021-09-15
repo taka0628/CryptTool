@@ -27,9 +27,18 @@ void dynamic_mem_c::d_new(uint size)
         delete this->mem;
         this->mem = nullptr;
     }
+    try
+    {
+        this->mem = new unsigned char[size];
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+        return;
+    }
 
-    this->mem = new unsigned char[size];
     this->size = size;
+    memset(this->mem, 0, this->size);
 }
 
 void dynamic_mem_c::d_free()
@@ -92,4 +101,18 @@ void dynamic_mem_c::clear()
         return;
     }
     memset(this->mem, 0, this->get_size());
+}
+
+std::string dynamic_mem_c::to_string() const
+{
+    if (this->size == 0 || this->mem == nullptr)
+    {
+        return "";
+    }
+    string buf;
+    for (size_t i = 0; i < this->get_size(); i++)
+    {
+        buf += this->mem[i];
+    }
+    return buf;
 }

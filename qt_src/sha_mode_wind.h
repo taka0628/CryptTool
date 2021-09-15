@@ -36,6 +36,12 @@ private slots:
 
     void on_lineEdit_input_textChanged(const QString &arg1);
 
+    void on_radioButton_string_clicked();
+
+    void on_radioButton_hex_clicked();
+
+    void on_pushButton_clicked();
+
 private:
     Ui::sha_mode_wind *ui;
 

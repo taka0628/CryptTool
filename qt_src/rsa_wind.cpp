@@ -100,6 +100,9 @@ void rsa_wind::on_pushButton_cpy_pressed()
 void rsa_wind::on_pushButton_dec_pressed()
 {
     string input(ui->lineEdit_input->text().toStdString());
+    if(input.length() != RSA_BIT/4){
+        return;
+    }
     int size = input.size()/2;
     if(size <= RSA_BIT){
         RSA_c rsa;

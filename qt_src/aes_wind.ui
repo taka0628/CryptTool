@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>418</width>
+    <width>419</width>
     <height>537</height>
    </rect>
   </property>
@@ -237,6 +237,35 @@
     </rect>
    </property>
   </widget>
+  <widget class="QFrame" name="frame">
+   <property name="geometry">
+    <rect>
+     <x>19</x>
+     <y>19</y>
+     <width>311</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+  </widget>
+  <zorder>frame</zorder>
+  <zorder>horizontalLayoutWidget</zorder>
+  <zorder>horizontalLayoutWidget_2</zorder>
+  <zorder>label</zorder>
+  <zorder>horizontalLayoutWidget_3</zorder>
+  <zorder>label_2</zorder>
+  <zorder>textEdit_in</zorder>
+  <zorder>label_3</zorder>
+  <zorder>pushButton_enc</zorder>
+  <zorder>pushButton_dec</zorder>
+  <zorder>pushButton_cpy</zorder>
+  <zorder>groupBox_status</zorder>
+  <zorder>textBrowser_result</zorder>
  </widget>
  <resources/>
  <connections/>

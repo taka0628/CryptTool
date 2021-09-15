@@ -1,9 +1,6 @@
 #include "../include/RSA_c.hpp"
 #include "../include/dynamic_mem_c.hpp"
 
-#define ERROR(comment) \
-    printf("[ERROR]\n\t%s: %d\n\t%s\n", __func__, __LINE__, comment);
-
 RSA_c::RSA_c()
 {
     this->key_size = 0;
@@ -120,8 +117,9 @@ string RSA_c::encrypt(const string &in) const
 
 string RSA_c::decrypt(const string &in) const
 {
+
     dynamic_mem_c buf;
-    buf.d_new(this->key_size);
+    buf.d_new(RSA_size(this->pub_key));
     int out_size = RSA_private_decrypt(in.length(), (unsigned char *)in.c_str(), buf.mem, this->priv_key, RSA_PKCS1_OAEP_PADDING);
     if (out_size <= 0)
     {
@@ -190,10 +188,6 @@ string RSA_c::hex2bin(const string &hex) const
     free(bin);
     bin = nullptr;
     return result;
-}
-
-string RSA_c::get_pub_key() const
-{
 }
 
 void RSA_c::create_RSA_file(KEY_STATUS pem_type, std::string file_name)

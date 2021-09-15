@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[6];
-    char stringdata0[118];
+    char stringdata0[116];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,15 +34,15 @@ static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
 QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
 QT_MOC_LITERAL(1, 11, 25), // "on_pushButton_aes_pressed"
 QT_MOC_LITERAL(2, 37, 0), // ""
-QT_MOC_LITERAL(3, 38, 26), // "on_pushButton_sha1_pressed"
-QT_MOC_LITERAL(4, 65, 26), // "on_pushButton_sha2_pressed"
-QT_MOC_LITERAL(5, 92, 25) // "on_pushButton_rsa_pressed"
+QT_MOC_LITERAL(3, 38, 25), // "on_pushButton_rsa_pressed"
+QT_MOC_LITERAL(4, 64, 25), // "on_pushButton_sha_clicked"
+QT_MOC_LITERAL(5, 90, 25) // "on_pushButton_sha_pressed"
 
     },
     "MainWindow\0on_pushButton_aes_pressed\0"
-    "\0on_pushButton_sha1_pressed\0"
-    "on_pushButton_sha2_pressed\0"
-    "on_pushButton_rsa_pressed"
+    "\0on_pushButton_rsa_pressed\0"
+    "on_pushButton_sha_clicked\0"
+    "on_pushButton_sha_pressed"
 };
 #undef QT_MOC_LITERAL
 
@@ -81,9 +81,9 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->on_pushButton_aes_pressed(); break;
-        case 1: _t->on_pushButton_sha1_pressed(); break;
-        case 2: _t->on_pushButton_sha2_pressed(); break;
-        case 3: _t->on_pushButton_rsa_pressed(); break;
+        case 1: _t->on_pushButton_rsa_pressed(); break;
+        case 2: _t->on_pushButton_sha_clicked(); break;
+        case 3: _t->on_pushButton_sha_pressed(); break;
         default: ;
         }
     }

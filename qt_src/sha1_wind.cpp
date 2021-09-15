@@ -29,7 +29,7 @@ void sha_wind::on_lineEdit_textChanged(const QString &arg1)
 
     SHA_c sha;
     string hash;
-    hash = sha.sha1_cal(input_iv.toUtf8().data());
+    hash = sha.sha1_cal(input_iv.toUtf8().data(), false);
     hash = sha.str2hex(hash);
     ui->textBrowser_hash->setText(QString::fromUtf8(hash.c_str()));
 
